@@ -20,4 +20,5 @@ bindings.o: bindings.cpp
 	gsc -c $<
 
 clean:
-	rm -f hello webkit *.o bindings-gambit.c hello.c hello_.c
+	rm -f hello webkit *.o bindings-gambit.c hello.c hello_.c webkit.c webkit_.c
+
