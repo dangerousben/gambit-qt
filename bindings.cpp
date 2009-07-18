@@ -45,8 +45,7 @@ extern "C" void qapplication_exec(QApplication *app)
 extern "C" QPushButton *make_qpushbutton(char *text)
 {
 	QString str = QString::fromUtf8(text);
-
-	return new QPushButton(text);
+	return new QPushButton(str);
 }
 
 extern "C" void qwidget_resize(QWidget *widget, int w, int h)
