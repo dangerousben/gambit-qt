@@ -32,3 +32,6 @@ packages.
   explicitly delete them (and hopefully find a pain-free way to do so
   at the right time).
 
+* Strings are currently passed between scheme and C++ as UTF-8.  This
+  is probably suboptimal.  We should find out what Qt uses internally
+  (UTF 16?) and use that.

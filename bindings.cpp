@@ -44,6 +44,8 @@ extern "C" void qapplication_exec(QApplication *app)
 
 extern "C" QPushButton *make_qpushbutton(char *text)
 {
+	QString str = QString::fromUtf8(text);
+
 	return new QPushButton(text);
 }
 
@@ -64,6 +66,7 @@ extern "C" QWebView *make_qwebview()
 
 extern "C" void qwebview_load(QWebView *view, const char *u)
 {
-	QUrl url = QUrl(u);
+	QString str = QString::fromUtf8(u);
+	QUrl url = QUrl(str);
 	view->load(url);
 }
