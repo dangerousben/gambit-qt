@@ -2,12 +2,14 @@
 (c-define-type qapplication (pointer void))
 (c-define-type qwidget (pointer void))
 (c-define-type qpushbutton (pointer void))
+(c-define-type qwebview (pointer void))
 
 ; This is the 'correct' version but it causes a compile error
 ;(c-define-type qapplication (pointer (type "QObject")))
 ;(c-define-type qapplication (pointer (type "QApplication")))
 ;(c-define-type qpushbutton (pointer (type "QWidget")))
 ;(c-define-type qpushbutton (pointer (type "QPushButton")))
+;(c-define-type qwebview (pointer (type "QWebView")))
 
 (define qt-connect
   (c-lambda (qobject UTF-8-string qobject UTF-8-string) bool "qt_connect"))
@@ -26,3 +28,9 @@
 
 (define qwidget-show
   (c-lambda (qwidget) void "qwidget_show"))
+
+(define make-qwebview
+  (c-lambda () qwebview "make_qwebview"))
+
+(define qwebview-load
+  (c-lambda (qwebview UTF-8-string) void "qwebview_load"))

@@ -3,6 +3,8 @@ Very preliminary hack at Qt bindings for gambit scheme.  Some notes:
 * hello.scm is a basically an implementation of the first two
   tutorials from http://doc.trolltech.com/4.3/tutorial.html
 
+* webkit.scm is a simple demo of the QWebView widget.
+
 * bindings.cpp can be independent of scheme implementation, with all
   the implementation specific stuff going in bindings-<impl>.scm.
 

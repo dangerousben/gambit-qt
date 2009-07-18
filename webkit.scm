@@ -1,0 +1,5 @@
+(let ((app (make-qapplication))
+      (browser (make-qwebview)))
+  (qwebview-load browser "http://www.google.com")
+  (qwidget-show browser)
+  (qapplication-exec app))

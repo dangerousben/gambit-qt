@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QPushButton>
+#include <QWebView>
 
 extern "C" const char *qt_connect(QObject *source, const char *signal,
 				  QObject *dest, const char *slot)
@@ -54,4 +55,15 @@ extern "C" void qwidget_resize(QWidget *widget, int w, int h)
 extern "C" void qwidget_show(QWidget *widget)
 {
 	widget->show();
+}
+
+extern "C" QWebView *make_qwebview()
+{
+	return new QWebView();
+}
+
+extern "C" void qwebview_load(QWebView *view, const char *u)
+{
+	QUrl url = QUrl(u);
+	view->load(url);
 }
