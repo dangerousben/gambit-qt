@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QWebView>
 
-extern "C" const char *qt_connect(QObject *source, const char *signal,
+extern "C" const char *q_connect(QObject *source, const char *signal,
 				  QObject *dest, const char *slot)
 {
 	// FIXME: this is horrible and will probably break between qt versions
@@ -28,39 +28,39 @@ extern "C" const char *qt_connect(QObject *source, const char *signal,
 	free(pslot);
 }
 
-extern "C" QApplication *make_qapplication()
+extern "C" QApplication *make_q_application()
 {
 	// FIXME: how do we get argc and argv?
 	return new QApplication(0, 0);
 }
 
-extern "C" void qapplication_exec(QApplication *app)
+extern "C" void q_application_exec(QApplication *app)
 {
 	app->exec();
 }
 
-extern "C" QPushButton *make_qpushbutton(char *text)
+extern "C" QPushButton *make_q_push_button(char *text)
 {
 	QString str = QString::fromUtf8(text);
 	return new QPushButton(str);
 }
 
-extern "C" void qwidget_resize(QWidget *widget, int w, int h)
+extern "C" void q_widget_resize(QWidget *widget, int w, int h)
 {
 	widget->resize(w, h);
 }
 
-extern "C" void qwidget_show(QWidget *widget)
+extern "C" void q_widget_show(QWidget *widget)
 {
 	widget->show();
 }
 
-extern "C" QWebView *make_qwebview()
+extern "C" QWebView *make_q_web_view()
 {
 	return new QWebView();
 }
 
-extern "C" void qwebview_load(QWebView *view, const char *u)
+extern "C" void q_web_view_load(QWebView *view, const char *u)
 {
 	QString str = QString::fromUtf8(u);
 	QUrl url = QUrl(str);
