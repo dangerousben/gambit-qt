@@ -14,7 +14,7 @@ sqeme.c: tiny-clos/sort.c tiny-clos/support.c tiny-clos/tiny-clos.c bindings-gam
 	gsc -link -o $@ $^
 
 %.c: %.scm
-	gsc -c $<
+	gsc -c -debug $<
 
 clean:
 	rm -f libsqeme.so *.o *.c
