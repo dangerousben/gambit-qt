@@ -187,7 +187,7 @@
 ; my understanding of the CL world...  I hope it is right.
 ;
 ;
-(load "support")
+; (load "support") - disabled because we're compiling it in instead
 
 ;
 ; Then, we need to build what, in a more real implementation, would be
