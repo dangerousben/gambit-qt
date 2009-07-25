@@ -41,7 +41,8 @@
 ;
 ;
 (define what-scheme-implementation
-  'mit
+  'gambit
+ ;'mit
  ;'chez
  ;'scm
  ;'scheme48         ; Scheme 48 requires that you do:
@@ -55,6 +56,7 @@
 
 (define gsort
   (case what-scheme-implementation
+    ((gambit)   sort)
     ((mit)      (lambda (predicate list) (sort list predicate)))
     ((chez)     (lambda (predicate list) (sort predicate list)))
     ((scheme48) (lambda (predicate list) (sort-list predicate list)))
