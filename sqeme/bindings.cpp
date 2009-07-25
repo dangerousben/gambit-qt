@@ -31,10 +31,7 @@ extern "C" const char *qt_connect(QObject *source, const char *signal,
 extern "C" QApplication *make_qapplication()
 {
 	// FIXME: how do we get argc and argv?
-	int argc = 1;
-	char *argv[] = {"hello"};
-
-	return new QApplication(argc, argv);
+	return new QApplication(0, 0);
 }
 
 extern "C" void qapplication_exec(QApplication *app)

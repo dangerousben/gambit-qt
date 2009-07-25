@@ -5,6 +5,9 @@ Very preliminary hack at Qt bindings for gambit scheme.  Some notes:
 
 * webkit.scm is a simple demo of the QWebView widget.
 
+* You will need to run the demos with LD_LIBRARY_PATH=./sqeme because
+  the shared library doesn't get installed.
+
 * bindings.cpp can be independent of scheme implementation, with all
   the implementation specific stuff going in bindings-<impl>.scm.
 
