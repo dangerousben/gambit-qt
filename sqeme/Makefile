@@ -17,5 +17,4 @@ sqeme-gambit.c: tiny-clos/sort.c tiny-clos/support.c tiny-clos/tiny-clos.c bindi
 	gsc -c -debug $<
 
 clean:
-	rm -f libsqeme-gambit.so *.o *.c
-
+	rm -f libsqeme-gambit.so *.o *.c tiny-clos/*.o tiny-clos/*.c
