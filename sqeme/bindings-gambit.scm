@@ -5,9 +5,9 @@
 (c-define-type qwebview (pointer void))
 
 ; This is the 'correct' version but it causes a compile error
-;(c-define-type qapplication (pointer (type "QObject")))
+;(c-define-type qobject (pointer (type "QObject")))
 ;(c-define-type qapplication (pointer (type "QApplication")))
-;(c-define-type qpushbutton (pointer (type "QWidget")))
+;(c-define-type qwidget (pointer (type "QWidget")))
 ;(c-define-type qpushbutton (pointer (type "QPushButton")))
 ;(c-define-type qwebview (pointer (type "QWebView")))
 
