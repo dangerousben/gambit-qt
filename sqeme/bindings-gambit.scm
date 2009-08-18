@@ -23,10 +23,10 @@
 (define q-show (make-generic))
 
 (define q-object
-  (make <class> 'direct-slots '(obj)))
+  (make-class '() '(obj)))
 
 (define q-application
-  (make <class> 'direct-supers (list q-object)))
+  (make-class (list q-object) '()))
 
 (define make-q-application
   (c-lambda () qapplication "make_q_application"))
@@ -45,7 +45,7 @@
       (q-application-exec (slot-ref app 'obj)))))
 
 (define q-widget
-  (make <class> 'direct-supers (list q-object)))
+  (make-class (list q-object) '()))
 
 (define q-widget-resize
   (c-lambda (qwidget int int) void "q_widget_resize"))
@@ -64,7 +64,7 @@
       (q-widget-show (slot-ref widget 'obj)))))
 
 (define q-push-button
-  (make <class> 'direct-supers (list q-widget)))
+  (make-class (list q-widget) '()))
 
 (define make-q-push-button
   (c-lambda (UTF-8-string) qpushbutton "make_q_push_button"))
@@ -76,7 +76,7 @@
                  (make-q-push-button (car args))))))
 
 (define q-web-view
-  (make <class> 'direct-supers (list q-widget)))
+  (make-class (list q-widget) '()))
 
 (define make-q-web-view
   (c-lambda () qwebview "make_q_web_view"))
