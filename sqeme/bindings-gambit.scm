@@ -14,7 +14,7 @@
 
 (define (q-connect source signal dest slot)
   ((c-lambda (qobject UTF-8-string qobject UTF-8-string) bool "q_connect")
-   (slot-ref source 'obj) signal (slot-ref dest 'obj) slot))
+   (q-cobj source) signal (q-cobj dest) slot))
 
 (define q-exec (make-generic))
 (define q-load (make-generic))
@@ -22,7 +22,10 @@
 (define q-show (make-generic))
 
 (define q-object
-  (make-class '() '(obj)))
+  (make-class '() '(cobj)))
+
+(define (q-cobj obj)
+  (slot-ref obj 'cobj))
 
 (define q-application
   (make-class (list q-object) '()))
@@ -33,7 +36,7 @@
 (add-method initialize
   (make-method (list q-application)
     (lambda (cnm obj args)
-      (slot-set! obj 'obj (make-q-application)))))
+      (slot-set! obj 'cobj (make-q-application)))))
 
 (define q-application-exec
   (c-lambda (qapplication) void "q_application_exec"))
@@ -41,7 +44,7 @@
 (add-method q-exec
   (make-method (list q-application)
     (lambda (cnm app)
-      (q-application-exec (slot-ref app 'obj)))))
+      (q-application-exec (q-cobj app)))))
 
 (define q-widget
   (make-class (list q-object) '()))
@@ -52,7 +55,7 @@
 (add-method q-resize
   (make-method (list q-widget)
     (lambda (cnm widget w h)
-      (q-widget-resize (slot-ref widget 'obj) w h))))
+      (q-widget-resize (q-cobj widget) w h))))
 
 (define q-widget-show
   (c-lambda (qwidget) void "q_widget_show"))
@@ -60,7 +63,7 @@
 (add-method q-show
   (make-method (list q-widget)
     (lambda (cnm widget)
-      (q-widget-show (slot-ref widget 'obj)))))
+      (q-widget-show (q-cobj widget)))))
 
 (define q-push-button
   (make-class (list q-widget) '()))
@@ -71,7 +74,7 @@
 (add-method initialize
   (make-method (list q-push-button)
     (lambda (cnm obj args)
-      (slot-set! obj 'obj
+      (slot-set! obj 'cobj
                  (make-q-push-button (car args))))))
 
 (define q-web-view
@@ -83,7 +86,7 @@
 (add-method initialize
   (make-method (list q-web-view)
     (lambda (cnm obj args)
-      (slot-set! obj 'obj (make-q-web-view)))))
+      (slot-set! obj 'cobj (make-q-web-view)))))
 
 (define q-web-view-load
   (c-lambda (qwebview UTF-8-string) void "q_web_view_load"))
@@ -91,4 +94,4 @@
 (add-method q-load
   (make-method (list q-web-view)
     (lambda (cnm wv url)
-      (q-web-view-load (slot-ref wv 'obj) url))))
+      (q-web-view-load (q-cobj wv) url))))
