@@ -16,6 +16,7 @@
   ((c-lambda (qobject UTF-8-string qobject UTF-8-string) bool "q_connect")
    (q-cobj source) signal (q-cobj dest) slot))
 
+(define q-init (make-generic))
 (define q-exec (make-generic))
 (define q-load (make-generic))
 (define q-resize (make-generic))
@@ -27,16 +28,21 @@
 (define (q-cobj obj)
   (slot-ref obj 'cobj))
 
+(add-method initialize
+  (make-method (list q-object)
+    (lambda (cnm obj args)
+      (slot-set! obj 'cobj (apply q-init obj args)))))
+
 (define q-application
   (make-class (list q-object) '()))
 
 (define make-q-application
   (c-lambda () qapplication "make_q_application"))
 
-(add-method initialize
+(add-method q-init
   (make-method (list q-application)
-    (lambda (cnm obj args)
-      (slot-set! obj 'cobj (make-q-application)))))
+    (lambda (cnm obj)
+      (make-q-application))))
 
 (define q-application-exec
   (c-lambda (qapplication) void "q_application_exec"))
@@ -71,11 +77,10 @@
 (define make-q-push-button
   (c-lambda (UTF-8-string) qpushbutton "make_q_push_button"))
 
-(add-method initialize
+(add-method q-init
   (make-method (list q-push-button)
-    (lambda (cnm obj args)
-      (slot-set! obj 'cobj
-                 (make-q-push-button (car args))))))
+    (lambda (cnm obj text)
+      (make-q-push-button text))))
 
 (define q-web-view
   (make-class (list q-widget) '()))
@@ -83,10 +88,10 @@
 (define make-q-web-view
   (c-lambda () qwebview "make_q_web_view"))
 
-(add-method initialize
+(add-method q-init
   (make-method (list q-web-view)
-    (lambda (cnm obj args)
-      (slot-set! obj 'cobj (make-q-web-view)))))
+    (lambda (cnm obj)
+      (make-q-web-view))))
 
 (define q-web-view-load
   (c-lambda (qwebview UTF-8-string) void "q_web_view_load"))
