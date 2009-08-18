@@ -2,3 +2,5 @@
 *.o
 hello
 webkit
+libsqeme-gambit.so
+
