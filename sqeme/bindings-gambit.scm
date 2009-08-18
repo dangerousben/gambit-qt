@@ -12,10 +12,9 @@
 ;(c-define-type qwebview (pointer (type "QWebView")))
 
 
-(define q-connect
-  (lambda (source signal dest slot)
-    ((c-lambda (qobject UTF-8-string qobject UTF-8-string) bool "q_connect")
-     (slot-ref source 'obj) signal (slot-ref dest 'obj) slot)))
+(define (q-connect source signal dest slot)
+  ((c-lambda (qobject UTF-8-string qobject UTF-8-string) bool "q_connect")
+   (slot-ref source 'obj) signal (slot-ref dest 'obj) slot))
 
 (define q-exec (make-generic))
 (define q-load (make-generic))
