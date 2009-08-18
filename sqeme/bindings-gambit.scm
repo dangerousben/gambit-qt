@@ -36,67 +36,46 @@
 (define q-application
   (make-class (list q-object) '()))
 
-(define make-q-application
-  (c-lambda () qapplication "make_q_application"))
-
 (add-method q-init
   (make-method (list q-application)
     (lambda (cnm obj)
-      (make-q-application))))
-
-(define q-application-exec
-  (c-lambda (qapplication) void "q_application_exec"))
+      ((c-lambda () qapplication "make_q_application")))))
 
 (add-method q-exec
   (make-method (list q-application)
     (lambda (cnm app)
-      (q-application-exec (q-cobj app)))))
+      ((c-lambda (qapplication) void "q_application_exec") (q-cobj app)))))
 
 (define q-widget
   (make-class (list q-object) '()))
 
-(define q-widget-resize
-  (c-lambda (qwidget int int) void "q_widget_resize"))
-
 (add-method q-resize
   (make-method (list q-widget)
     (lambda (cnm widget w h)
-      (q-widget-resize (q-cobj widget) w h))))
-
-(define q-widget-show
-  (c-lambda (qwidget) void "q_widget_show"))
+      ((c-lambda (qwidget int int) void "q_widget_resize") (q-cobj widget) w h))))
 
 (add-method q-show
   (make-method (list q-widget)
     (lambda (cnm widget)
-      (q-widget-show (q-cobj widget)))))
+      ((c-lambda (qwidget) void "q_widget_show") (q-cobj widget)))))
 
 (define q-push-button
   (make-class (list q-widget) '()))
 
-(define make-q-push-button
-  (c-lambda (UTF-8-string) qpushbutton "make_q_push_button"))
-
 (add-method q-init
   (make-method (list q-push-button)
     (lambda (cnm obj text)
-      (make-q-push-button text))))
+      ((c-lambda (UTF-8-string) qpushbutton "make_q_push_button") text))))
 
 (define q-web-view
   (make-class (list q-widget) '()))
 
-(define make-q-web-view
-  (c-lambda () qwebview "make_q_web_view"))
-
 (add-method q-init
   (make-method (list q-web-view)
     (lambda (cnm obj)
-      (make-q-web-view))))
-
-(define q-web-view-load
-  (c-lambda (qwebview UTF-8-string) void "q_web_view_load"))
+      ((c-lambda () qwebview "make_q_web_view")))))
 
 (add-method q-load
   (make-method (list q-web-view)
     (lambda (cnm wv url)
-      (q-web-view-load (q-cobj wv) url))))
+      ((c-lambda (qwebview UTF-8-string) void "q_web_view_load") (q-cobj wv) url))))
